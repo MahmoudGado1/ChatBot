@@ -5,7 +5,7 @@ import team2 from "../assets/testimonials-5.jpg";
 import team3 from "../assets/testimonials-5.jpg";
 import team4 from "../assets/testimonials-5.jpg";
 import team5 from "../assets/testimonials-5.jpg";
-
+import Footer from "../components/Footer";
 const teamMembers = [
   { img: team1, name: "John Doe", role: "AI Engineer" },
   { img: team2, name: "Jane Smith", role: "Frontend Developer" },
@@ -65,7 +65,7 @@ const Hero = () => {
             to provide cutting-edge chatbot technology to help businesses and
             individuals achieve their goals.
           </p>
-          <div className="bg-indigo-100 mx-auto lg:w-[70%] p-4 rounded-lg">
+          <div className="bg-indigo-100 mx-auto lg:w-[70%] p-4 rounded-lg mt-16">
             <h2 className="text-xl text-center font-semibold mb-2">Our Team</h2>
             <p className="text-gray-700 text-center">
               Meet the talented individuals behind our success. We are a diverse
@@ -75,7 +75,7 @@ const Hero = () => {
           </div>
 
           {/* Carousel Section */}
-          <div className="relative w-full max-w-4xl mx-auto mt-9 overflow-hidden">
+          <div className="relative w-full max-w-4xl mx-auto mt-9 mb-12 overflow-hidden">
             {/* Team Cards Container */}
             <div
               className="flex gap-4 sm:gap-6 transition-all duration-500 ease-in-out"
@@ -123,6 +123,7 @@ const Hero = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 };

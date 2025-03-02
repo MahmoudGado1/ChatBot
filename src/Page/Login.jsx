@@ -38,8 +38,6 @@ const Login = () => {
         toast.error("No token received. Please try again.");
       }
     } catch (error) {
-      console.error("Login failed:", error.response?.data);
-  
       const errorMessages = Object.values(error.response?.data || {}).flat().join(", ");
       toast.error(errorMessages || "Invalid credentials");
     }
@@ -82,13 +80,7 @@ const Login = () => {
                 required
               />
             </div>
-            <div className="flex items-center justify-between mb-6">
-              <div className="text-sm">
-                <a href="/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
-                  Forgot your password?
-                </a>
-              </div>
-            </div>
+
             <button type="submit" className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
               Sign In
             </button>

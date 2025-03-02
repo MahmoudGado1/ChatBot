@@ -31,7 +31,7 @@ const TranslateButton = () => {
 
   return (
     <>
-      <div id="google_translate_element" style={{ display: "none" }}></div>
+      <div id="google_translate_element" style={{ display: "none",position:'absolute' }}></div>
 
       <button className="translate-btn arabic-btn" onClick={() => translateTo("ar")}>Arabic</button>
       <button className="translate-btn english-btn" onClick={() => translateTo("en")}>English</button>

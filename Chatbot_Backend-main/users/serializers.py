@@ -98,28 +98,28 @@ class PasswordResetSerializer(serializers.Serializer):
         new_password = data.get('new_password')
         confirm_new_password = data.get('confirm_new_password')
 
-        curr_user = self.context.get('request').user
+        request = self.context.get('request')
+        curr_user = request.user if request and request.user.is_authenticated else None
 
-        #check if user with this email exist
+        # Check if user with this email exists
         user = User.objects.filter(email=email).first()
         if not user:
-            raise serializers.ValidationError("User with this email does not exist")
+            raise serializers.ValidationError({ "email": ["User with this email does not exist"] })
 
-        if not user == curr_user:
-            raise serializers.ValidationError("You are not authorized to perform this action")
+        # Ensure the logged-in user is the same as the one changing the password
+        if not curr_user or user != curr_user:
+            raise serializers.ValidationError({ "authorization": ["You are not authorized to perform this action"] })
 
-        
-        #check old password
-        user = authenticate(email=email, password=old_password)
-        if not user:
-            raise serializers.ValidationError("invalid old password")
-        
-        #check new password and confirm_new_password
+        # Check old password correctly
+        if not user.check_password(old_password):
+            raise serializers.ValidationError({ "old_password": ["Invalid old password"] })
+
+        # Check new password confirmation
         if new_password != confirm_new_password:
-            raise serializers.ValidationError("new password and confirm new password do not match")
-        
+            raise serializers.ValidationError({ "confirm_new_password": ["New password and confirm password do not match"] })
+
+        # Update password
         user.set_password(confirm_new_password)
         user.save()
-        
+
         return data
-                

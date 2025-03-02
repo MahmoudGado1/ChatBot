@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import icon from "../assets/icon.png";
-import author from "../assets/author.png";
 import { useLocation } from "react-router";
 import { toast } from "react-hot-toast";
 
 const TopNav = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const navigate = useNavigate();
-  const token = localStorage.getItem("authToken");
-  const name=localStorage.getItem("first_name")
+  const token = localStorage.getItem("authToken") || "";
+  const name=localStorage.getItem("first_name") || "";
   const firstChar = name.charAt(0).toUpperCase();
 
   const handleLogout = () => {
@@ -47,13 +46,13 @@ const TopNav = () => {
             {isProfileOpen && (
               <div className="absolute z-50 right-0 mt-2 w-40 bg-white border shadow-lg rounded-lg">
                 <button
-                  onClick={() => navigate("/profile")}
+                  onClick={() => navigate("/profile") || setIsProfileOpen(false)}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                 >
                   Profile
                 </button>
                 <button
-                  onClick={handleLogout}
+                  onClick={handleLogout || setIsProfileOpen(false)}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                 >
                   Logout
@@ -236,6 +235,7 @@ const Nav = () => {
               >
                 Chat 4
               </button>
+
               <a
                 href="#about-us"
                 className="py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-center"
